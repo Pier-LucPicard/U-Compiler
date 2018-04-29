@@ -1,0 +1,5 @@
+.vscode
+src/goLite
+src/*.o
+src/parser.tab.*
+src/lex.yy.*
