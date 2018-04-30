@@ -1,0 +1,143 @@
+Terminals which are not used
+
+   tCOMEUNE
+   tUNE
+   tFIN
+   tDEBUT
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: '+'
+    2        | definition
+    3        | /* empty */
+
+    4 definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR tINTLITERAL '.'
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'+' (43) 1
+'.' (46) 4
+error (256)
+tDEFINIR (258) 4
+tCOMEUNE (259)
+tQUANTITY (260) 4
+tAVECVALEUR (261) 4
+tCOMME (262) 4
+tUN (263) 4
+tUNE (264)
+tFIN (265)
+tDEBUT (266)
+tIDENTIFIER (267) 4
+tINTLITERAL (268) 4
+
+
+Nonterminals, with rules where they appear
+
+$accept (16)
+    on left: 0
+program (17)
+    on left: 1 2 3, on right: 0
+definition (18)
+    on left: 4, on right: 2
+
+
+state 0
+
+    0 $accept: . program $end
+
+    tDEFINIR  shift, and go to state 1
+    '+'       shift, and go to state 2
+
+    $default  reduce using rule 3 (program)
+
+    program     go to state 3
+    definition  go to state 4
+
+
+state 1
+
+    4 definition: tDEFINIR . tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR tINTLITERAL '.'
+
+    tIDENTIFIER  shift, and go to state 5
+
+
+state 2
+
+    1 program: '+' .
+
+    $default  reduce using rule 1 (program)
+
+
+state 3
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 6
+
+
+state 4
+
+    2 program: definition .
+
+    $default  reduce using rule 2 (program)
+
+
+state 5
+
+    4 definition: tDEFINIR tIDENTIFIER . tCOMME tUN tQUANTITY tAVECVALEUR tINTLITERAL '.'
+
+    tCOMME  shift, and go to state 7
+
+
+state 6
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 7
+
+    4 definition: tDEFINIR tIDENTIFIER tCOMME . tUN tQUANTITY tAVECVALEUR tINTLITERAL '.'
+
+    tUN  shift, and go to state 8
+
+
+state 8
+
+    4 definition: tDEFINIR tIDENTIFIER tCOMME tUN . tQUANTITY tAVECVALEUR tINTLITERAL '.'
+
+    tQUANTITY  shift, and go to state 9
+
+
+state 9
+
+    4 definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY . tAVECVALEUR tINTLITERAL '.'
+
+    tAVECVALEUR  shift, and go to state 10
+
+
+state 10
+
+    4 definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR . tINTLITERAL '.'
+
+    tINTLITERAL  shift, and go to state 11
+
+
+state 11
+
+    4 definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR tINTLITERAL . '.'
+
+    '.'  shift, and go to state 12
+
+
+state 12
+
+    4 definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR tINTLITERAL '.' .
+
+    $default  reduce using rule 4 (definition)
