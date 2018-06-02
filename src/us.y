@@ -17,7 +17,7 @@ void yyerror(const char *s) {fprintf(stderr, "Erreur: (ligne %d) %s\n", yylineno
 %locations
 %error-verbose
 
-%token tDEFINIR tCOMEUNE tQUANTITY tAVECVALEUR tCOMME tUN tUNE tFIN tDEBUT
+%token tDEFINIR tCOMEUNE tQUANTITY tAVECVALEUR tCOMME tUN tUNE tFIN tDEBUT tVALEURDE tIMPRIMER
 
 %token <string_lit>  tIDENTIFIER
 %token <int_lit> tINTLITERAL 
@@ -26,10 +26,28 @@ void yyerror(const char *s) {fprintf(stderr, "Erreur: (ligne %d) %s\n", yylineno
 %%
 
 
-program: '+'
-    | definition
+program: statements;
+
+
+statements: nStatement;
     | ;
 
-definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR  tINTLITERAL '.'
+nStatement: statement nStatement
+    | statement;
+
+statement: definition '.'
+    | printStatement '.';
+
+definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR  tINTLITERAL;
+
+
+
+printStatement: tIMPRIMER sentence
+    | tIMPRIMER tINTLITERAL
+    | tIMPRIMER tVALEURDE tIDENTIFIER;
+
+
+sentence: tIDENTIFIER sentence
+    | tIDENTIFIER;
 
 %%
