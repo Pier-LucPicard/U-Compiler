@@ -15,17 +15,17 @@ Grammar
     2 statements: nStatement
     3           | /* empty */
 
-    4 nStatement: statement nStatement
-    5           | statement
+    4 nStatement: statement
+    5           | statement nStatement
 
     6 statement: definition '.'
     7          | printStatement '.'
 
     8 definition: tDEFINIR tIDENTIFIER tCOMME tUN tQUANTITY tAVECVALEUR tINTLITERAL
 
-    9 printStatement: tIMPRIMER sentence
-   10               | tIMPRIMER tINTLITERAL
-   11               | tIMPRIMER tVALEURDE tIDENTIFIER
+    9 printStatement: tAFFICHER sentence
+   10               | tAFFICHER tINTLITERAL
+   11               | tAFFICHER tVALEURDE tIDENTIFIER
 
    12 sentence: tIDENTIFIER sentence
    13         | tIDENTIFIER
@@ -46,7 +46,7 @@ tUNE (264)
 tFIN (265)
 tDEBUT (266)
 tVALEURDE (267) 11
-tIMPRIMER (268) 9 10 11
+tAFFICHER (268) 9 10 11
 tIDENTIFIER (269) 8 11 12 13
 tINTLITERAL (270) 8 10
 
@@ -60,7 +60,7 @@ program (18)
 statements (19)
     on left: 2 3, on right: 1
 nStatement (20)
-    on left: 4 5, on right: 2 4
+    on left: 4 5, on right: 2 5
 statement (21)
     on left: 6 7, on right: 4 5
 definition (22)
@@ -76,7 +76,7 @@ state 0
     0 $accept: . program $end
 
     tDEFINIR   shift, and go to state 1
-    tIMPRIMER  shift, and go to state 2
+    tAFFICHER  shift, and go to state 2
 
     $default  reduce using rule 3 (statements)
 
@@ -97,9 +97,9 @@ state 1
 
 state 2
 
-    9 printStatement: tIMPRIMER . sentence
-   10               | tIMPRIMER . tINTLITERAL
-   11               | tIMPRIMER . tVALEURDE tIDENTIFIER
+    9 printStatement: tAFFICHER . sentence
+   10               | tAFFICHER . tINTLITERAL
+   11               | tAFFICHER . tVALEURDE tIDENTIFIER
 
     tVALEURDE    shift, and go to state 10
     tIDENTIFIER  shift, and go to state 11
@@ -131,13 +131,13 @@ state 5
 
 state 6
 
-    4 nStatement: statement . nStatement
-    5           | statement .
+    4 nStatement: statement .
+    5           | statement . nStatement
 
     tDEFINIR   shift, and go to state 1
-    tIMPRIMER  shift, and go to state 2
+    tAFFICHER  shift, and go to state 2
 
-    $default  reduce using rule 5 (nStatement)
+    $default  reduce using rule 4 (nStatement)
 
     nStatement      go to state 15
     statement       go to state 6
@@ -168,7 +168,7 @@ state 9
 
 state 10
 
-   11 printStatement: tIMPRIMER tVALEURDE . tIDENTIFIER
+   11 printStatement: tAFFICHER tVALEURDE . tIDENTIFIER
 
     tIDENTIFIER  shift, and go to state 19
 
@@ -187,14 +187,14 @@ state 11
 
 state 12
 
-   10 printStatement: tIMPRIMER tINTLITERAL .
+   10 printStatement: tAFFICHER tINTLITERAL .
 
     $default  reduce using rule 10 (printStatement)
 
 
 state 13
 
-    9 printStatement: tIMPRIMER sentence .
+    9 printStatement: tAFFICHER sentence .
 
     $default  reduce using rule 9 (printStatement)
 
@@ -208,9 +208,9 @@ state 14
 
 state 15
 
-    4 nStatement: statement nStatement .
+    5 nStatement: statement nStatement .
 
-    $default  reduce using rule 4 (nStatement)
+    $default  reduce using rule 5 (nStatement)
 
 
 state 16
@@ -236,7 +236,7 @@ state 18
 
 state 19
 
-   11 printStatement: tIMPRIMER tVALEURDE tIDENTIFIER .
+   11 printStatement: tAFFICHER tVALEURDE tIDENTIFIER .
 
     $default  reduce using rule 11 (printStatement)
 

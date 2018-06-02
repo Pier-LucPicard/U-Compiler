@@ -29,7 +29,7 @@ void output(char * out){
 "une" {output("tUNE"); return tUNE;}
 "avec valeur" {output("tAVECVALEUR"); return tAVECVALEUR;}
 "entier" {output("tQUANTITY"); return tQUANTITY;}
-"imprimer" {output("tIMPRIMER"); return tIMPRIMER;}
+"afficher" {output("tAFFICHER"); return tAFFICHER;}
 "valeur de" {output("tVALEURDE"); return tVALEURDE;}
 
 "." {output("."); return '.';}
